@@ -35,10 +35,11 @@ public class ThreadConexion implements Runnable {
 
         try {
             String resultado = http.getStrDataByGET();
-            XMLParser parser = new XMLParser (resultado);
+            XMLParser parser = new XMLParser(resultado);
             List<RSS> rss = parser.parser();
-            //Log.d("", "___________________");
+
             Message msg= new Message();
+            //Log.d("", resultado.toString() + "___________________");
             msg.obj = rss;
             h.sendMessage(msg);
 

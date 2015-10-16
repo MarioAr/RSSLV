@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -29,19 +30,15 @@ public class MainActivity extends AppCompatActivity implements Handler.Callback 
 
         handler = new Handler(this);
 
-        lista = new ArrayList<RSS>();
+        //lista = new ArrayList<RSS>();
 
         //for (int i = 0; i < 10 ; i++){
             //lista.add(new RSS());
         //}
 
-
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
 
         rv.setLayoutManager(linearLayoutManager);
-
-
-
 
         ThreadConexion hiloConexion = new ThreadConexion("http://rss.cnn.com/rss/edition.rss", handler);
 
@@ -74,8 +71,10 @@ public class MainActivity extends AppCompatActivity implements Handler.Callback 
 
     @Override
     public boolean handleMessage(Message msg) {
+
         if ( msg.arg1 == 0 ) {
             lista = (List<RSS>) msg.obj;
+
             this.adapter = new MyAdapter((List<RSS>) msg.obj, handler );
             rv.setAdapter(this.adapter);
         }
